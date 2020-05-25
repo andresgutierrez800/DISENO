@@ -1,0 +1,82 @@
+<div class="container-fluid p-5">
+    <div>
+        <h2 id="page-heading">
+            <span jhiTranslate="tiendavirtualApp.producto.home.title">Productos</span>
+
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-producto" [routerLink]="['/producto/new']">
+                <fa-icon icon="plus"></fa-icon>
+                <span  jhiTranslate="tiendavirtualApp.producto.home.createLabel">
+                Create a new Producto
+                </span>
+            </button>
+        </h2>
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
+            <span jhiTranslate="tiendavirtualApp.producto.home.notFound">No productos found</span>
+        </div>
+        <!-- <span class="mr-2 col-2">Filter by name</span> -->
+        <!-- <input type="search" class="form-control contenedorBuscador" name="filtroPost" placeholder="Buscar ..." [(ngModel)]="filtroPost"> -->
+
+        <div class="table-responsive" id="entities" *ngIf="productos?.length > 0">
+            <div *ngIf="productos">
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let producto of productos; trackBy: trackId">
+                  <div class="row">
+                    <div class="col-2 col-xs-12 justify-content-center">
+                      <img [src]="'data:' + producto.imageContentType + ';base64,' + producto.image" style="max-height:150px;" alt="producto image" />
+                    </div>
+                    <div class="col col-xs-12">
+                      <div class="d-flex w-100 justify-content-between">
+                        <a [routerLink]="['/producto', producto.id, 'view']">
+                            <h5 class="mb-1">{{ producto.nombre }}</h5>
+                        </a>
+
+                        <small *ngIf="producto.productooCatergoria">
+                            <a [routerLink]="['/producto-category', producto.productoCatergoria?.id, 'view']">
+                                {{ producto.productoCatergoria?.id }}
+                            </a>
+                        </small>
+                      </div>
+
+                      <small class="mb-1">{{ producto.descripcion }}</small>
+                      <p class="mb-1">Precio: {{ producto.precio | currency: 'COL' }}</p>
+                      <small>
+                        Talla: {{ producto.talla }}
+                      </small>
+
+                      <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <button type="submit" [routerLink]="['/producto',producto.id,'edit']" class="btn btn-primary btn-sm">
+                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+
+                        <button type="submit" (click)="delete(producto)" class="btn btn-danger btn-sm">
+                          <fa-icon [icon]="'times'"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </a>
+              </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="productos?.length > 0">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

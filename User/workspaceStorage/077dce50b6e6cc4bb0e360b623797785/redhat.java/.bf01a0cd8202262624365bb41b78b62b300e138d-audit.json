@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 2
+    },
+    "auditLog": "/home/sergio/fin/tiendavirtual/User/workspaceStorage/077dce50b6e6cc4bb0e360b623797785/redhat.java/.bf01a0cd8202262624365bb41b78b62b300e138d-audit.json",
+    "files": [
+        {
+            "date": 1590445176408,
+            "name": "/home/sergio/fin/tiendavirtual/User/workspaceStorage/077dce50b6e6cc4bb0e360b623797785/redhat.java/client.log.2020-05-25",
+            "hash": "85cea9dadbb8ac15bbb50a1c12236e38"
+        }
+    ]
+}

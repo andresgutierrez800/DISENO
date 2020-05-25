@@ -1,0 +1,12 @@
+<!-- <a *ngIf="producto.image" (click)="openFile(producto.imageContentType, producto.image)"> -->
+<img [src]="'data:' + producto.imageContentType + ';base64,' + producto.image" class="card-img-top"  alt="producto image"/>
+<!-- <br> -->
+<div class="card-body">
+    <p class="text-uppercase">{{producto.nombre}}</p>
+    <div class="prodPrecio font-weight-bold">{{producto.precio | currency: 'COP'}}</div>
+    <div class="">{{producto.descripcion }}</div>
+    <br>
+
+    <button  class="btn btn-link" routerLink="/user/productos/{{producto.id}}">Ver detalles</button>
+    <button (click)="anadirCarrito()" class="btn btn-primary mt-3">Añadir al Carrito</button>
+</div>
